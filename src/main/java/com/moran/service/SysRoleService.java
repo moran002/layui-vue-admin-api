@@ -5,6 +5,7 @@ import io.mybatis.service.AbstractService;
 import com.moran.model.SysRole;
 import com.moran.mapper.SysRoleMapper;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
 @Service
 public class  SysRoleService extends AbstractService<SysRole, Long, SysRoleMapper> {
 
-    public List<SysRole> findByRoleIds(List<Long> roleIds) {
+    public List<SysRole> findByRoleIds(Collection<Long> roleIds) {
         return wrapper().in(SysRole::getId, roleIds).list();
     }
 }

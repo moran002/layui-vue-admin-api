@@ -6,6 +6,7 @@ import com.moran.model.SysRole;
 import com.moran.model.SysUser;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,7 @@ public class UserVO {
     /**
      * 实际姓名
      */
-    private String name;
+    private String nickName;
 
     /**
      * 手机号
@@ -47,13 +48,17 @@ public class UserVO {
     /**
      * 角色ID集合
      */
-    private List<Long> roleId;
+    private List<Long> roleIds;
     private String roleNames;
 
     /**
      * 状态:0:关闭,1:正常
      */
     private Boolean status;
+    /**
+     * 创建时间
+     */
+    private Date createTime;
 
     public static UserVO convert(SysUser u, List<SysRole> roles) {
         UserVO vo = BeanUtil.toBean(u, UserVO.class);

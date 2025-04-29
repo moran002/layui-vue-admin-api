@@ -11,6 +11,8 @@ import java.util.List;
  */
 @Data
 public class RouterVO {
+    private String name;
+    private String redirect;
     private String path;
     private String component;
     private Meta meta;

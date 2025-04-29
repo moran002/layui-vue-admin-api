@@ -1,6 +1,7 @@
 package com.moran.conf.exception;
 
 import cn.dev33.satoken.exception.SaTokenException;
+import cn.hutool.crypto.CryptoException;
 import com.moran.conf.bean.ResponseBean;
 import com.moran.conf.constant.CodeConstant;
 import lombok.extern.slf4j.Slf4j;
@@ -50,6 +51,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = SaTokenException.class)
     public ResponseBean<Object> saTokenException(SaTokenException e) {
         log.error("<!---- SaTokenException:{} ----!>", e.getMessage());
+        return ResponseBean.fail(CodeConstant.LOGIN_FAIL, e.getMessage());
+    }
+    @ExceptionHandler(value = CryptoException.class)
+    public ResponseBean<Object> cryptoException(CryptoException e) {
+        log.error("<!---- CryptoException:{} ----!>", e.getMessage());
         return ResponseBean.fail(CodeConstant.LOGIN_FAIL, e.getMessage());
     }
 }

@@ -10,5 +10,6 @@
     <result property="createBy" column="create_by" jdbcType="BIGINT"/><!-- 创建人 -->
     <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/><!-- 更新时间 -->
     <result property="updateBy" column="update_by" jdbcType="BIGINT"/><!-- 更新人 -->
+    <result property="deleted" column="deleted" jdbcType="TINYINT"/><!-- 是否删除 -->
   </resultMap>
 </mapper>

@@ -2,10 +2,9 @@ package com.moran.model;
 
 import com.moran.conf.mybatis.handler.LongListTypeHandler;
 import io.mybatis.provider.Entity;
-import org.apache.ibatis.type.JdbcType;
-
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.ibatis.type.JdbcType;
 
 import java.util.Date;
 import java.util.List;
@@ -64,4 +63,6 @@ public class SysUser {
     @Entity.Column(value = "update_by", remark = "更新人")
     private Long updateBy;
 
+    @Entity.Column(value = "deleted", remark = "删除")
+    private Boolean deleted;
 }

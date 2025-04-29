@@ -23,6 +23,9 @@ public class SysMenu {
     @Entity.Column(value = "parent_id", remark = "上级ID")
     private Long parentId;
 
+    @Entity.Column(value = "name", remark = "name")
+    private String name;
+
     @Entity.Column(value = "title", remark = "菜单名称")
     private String title;
 
@@ -50,6 +53,9 @@ public class SysMenu {
     @Entity.Column(value = "redirect", remark = "")
     private String redirect;
 
+    @Entity.Column(value = "status", remark = "状态")
+    private Boolean status;
+
     @Entity.Column(value = "create_time", remark = "创建时间", jdbcType = JdbcType.TIMESTAMP)
     private Date createTime;
 
@@ -61,5 +67,8 @@ public class SysMenu {
 
     @Entity.Column(value = "update_by", remark = "更新人")
     private Long updateBy;
+
+    @Entity.Column(value = "deleted", remark = "删除")
+    private Boolean deleted;
 
 }

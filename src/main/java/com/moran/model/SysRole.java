@@ -42,4 +42,7 @@ public class SysRole {
     @Entity.Column(value = "update_by", remark = "更新人")
     private Long updateBy;
 
+    @Entity.Column(value = "deleted", remark = "删除")
+    private Boolean deleted;
+
 }

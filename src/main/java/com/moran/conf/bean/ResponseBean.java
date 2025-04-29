@@ -40,6 +40,9 @@ public class ResponseBean<T> {
     public static <T> ResponseBean<T> fail(String msg) {
         return createResult(CodeConstant.ERROR, msg, null);
     }
+    public static <T> ResponseBean<T> loginFail(String msg) {
+        return createResult(CodeConstant.LOGIN_FAIL, msg, null);
+    }
 
     public static <T> ResponseBean<T> createResult(int code, String msg, T data) {
         ResponseBean<T> result = new ResponseBean<>();

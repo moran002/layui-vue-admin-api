@@ -2,13 +2,19 @@ package com.moran.controller.system.user.model;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
 @Data
 public class UserDTO {
+    /**
+     * ID
+     */
+    @NotNull(message = "请选择用户", groups = Update.class)
+    private Long id;
 
     /**
      * 账号
@@ -17,25 +23,14 @@ public class UserDTO {
     private String account;
 
     /**
-     * 密码
-     */
-    @NotBlank(message = "请输入密码", groups = Insert.class)
-    private String password;
-
-    /**
      * 实际姓名
      */
-    private String name;
+    private String nickName;
 
     /**
      * 手机号
      */
     private String mobile;
-
-    /**
-     * 头像
-     */
-    private String avatar;
 
     /**
      * 邮箱
@@ -47,10 +42,5 @@ public class UserDTO {
      */
     @NotEmpty(message = "请选择角色")
     private List<Long> roleIds;
-
-    /**
-     * 状态:0:关闭,1:正常
-     */
-    private Boolean status;
 
 }
