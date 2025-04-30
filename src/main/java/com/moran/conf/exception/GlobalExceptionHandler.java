@@ -6,6 +6,7 @@ import com.moran.conf.bean.ResponseBean;
 import com.moran.conf.constant.CodeConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -34,34 +35,44 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BindException.class)
     public ResponseBean<Object> handleBindException(BindException e) {
-        e.printStackTrace();
+        errorLog(e);
         String message = e.getAllErrors().get(0).getDefaultMessage();
         return ResponseBean.fail(message);
     }
 
     @ExceptionHandler(value = SQLException.class)
     public ResponseBean<Object> sqlException(SQLException e) {
-        e.printStackTrace();
+        errorLog(e);
         return ResponseBean.fail("数据异常");
     }
     @ExceptionHandler(value = ServiceException.class)
     public ResponseBean<Object> serviceException(ServiceException e) {
-        e.printStackTrace();
+        errorLog(e);
         return ResponseBean.fail(CodeConstant.SERVICE_ERROR, e.getMessage());
     }
     @ExceptionHandler(value = SaTokenException.class)
     public ResponseBean<Object> saTokenException(SaTokenException e) {
-        log.error("<!---- SaTokenException:{} ----!>", e.getMessage());
-        return ResponseBean.fail(CodeConstant.LOGIN_FAIL, e.getMessage());
+        errorLog(e);
+        return ResponseBean.fail(CodeConstant.LOGIN_FAIL, "登录失效,请重新登录!!");
     }
     @ExceptionHandler(value = CryptoException.class)
     public ResponseBean<Object> cryptoException(CryptoException e) {
-        log.error("<!---- CryptoException:{} ----!>", e.getMessage());
+        errorLog(e);
         return ResponseBean.fail(CodeConstant.LOGIN_FAIL, e.getMessage());
     }
     @ExceptionHandler(value = NoHandlerFoundException.class)
     public ResponseBean<Object> noHandlerFoundException(NoHandlerFoundException e) {
-        log.warn("<!---- NoHandlerFoundException:{} ----!>", e.getMessage());
+        errorLog(e);
         return ResponseBean.fail(CodeConstant.SERVICE_ERROR,"请求地址不存在");
+    }
+
+    @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
+    public ResponseBean<Object> noHandlerFoundException(HttpRequestMethodNotSupportedException e) {
+        errorLog(e);
+        return ResponseBean.fail(CodeConstant.SERVICE_ERROR,"请求地址不存在");
+    }
+
+    private static void errorLog(Exception e) {
+        log.error("<!---- 异常信息:{} ----!>", e.getMessage());
     }
 }

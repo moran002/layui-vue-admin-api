@@ -112,15 +112,14 @@ public class AuthController {
             return ResponseBean.loginFail("用户已停用");
         }
         if (!CommonConstant.RSA.decryptStr(sysUser.getPassword(), KeyType.PrivateKey).equals(dto.getPassword())) {
-            userService.incremental(sysUser.getId());
-            if (sysUser.getErrorCount() >= 5) {
-                long l = 60 * (long) (Math.pow(2, (sysUser.getErrorCount() - 5)));
-                redisService.set(failKey, dto.getAccount(), l);
-                return ResponseBean.loginFail(String.format("密码错误次数过多, 请等待%s秒", l));
+            long count = redisService.get(failKey);
+            if (count >= 10) {
+                redisService.increment(failKey, CommonConstant.EXPIRE);
+                return ResponseBean.loginFail(String.format("密码错误次数过多, 请等待%s秒", CommonConstant.EXPIRE));
             }
             return ResponseBean.loginFail("密码错误");
         }
-        userService.resetErrorCount(sysUser.getId());
+        redisService.delete(failKey);
         List<SysRole> roles = roleService.findByRoleIds(sysUser.getRoleIds());
         if (CollUtil.isEmpty(roles)) {
             return ResponseBean.loginFail("角色已关闭,暂时无法登录");

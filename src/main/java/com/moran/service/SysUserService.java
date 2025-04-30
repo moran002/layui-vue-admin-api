@@ -18,13 +18,9 @@ public interface SysUserService extends IService<SysUser> {
 
     SysUser findByAccount(String account);
 
-    void incremental(Long id);
-
-    void resetErrorCount(Long id);
-
     void delUser(@NotNull Long id);
 
-    Page<SysUser> userPage(String account, String mobile, String name, Long roleId);
+    Page<SysUser> userPage(String account, String mobile, String nickName, Long roleId);
 
     void createUser(UserDTO dto);
 

@@ -21,7 +21,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@TableName("sys_user")
+@TableName(value = "sys_user", autoResultMap = true)
 public class SysUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -77,11 +77,6 @@ public class SysUser implements Serializable {
      * 状态
      */
     private Boolean status;
-
-    /**
-     * 密码错误次数
-     */
-    private Integer errorCount;
 
     /**
      * 创建时间

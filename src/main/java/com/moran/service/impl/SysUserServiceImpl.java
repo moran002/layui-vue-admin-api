@@ -3,7 +3,6 @@ package com.moran.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.moran.conf.constant.CommonConstant;
@@ -31,20 +30,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public SysUser findByAccount(String account) {
         return baseMapper.selectOne(new LambdaQueryWrapper<>(SysUser.class)
                 .eq(SysUser::getAccount, account));
-    }
-
-    @Override
-    public void incremental(Long id) {
-        baseMapper.update(new LambdaUpdateWrapper<>(SysUser.class)
-                .eq(SysUser::getId, id)
-                .setIncrBy(true, SysUser::getErrorCount, 1));
-    }
-
-    @Override
-    public void resetErrorCount(Long id) {
-        SysUser user = new SysUser();
-        user.setErrorCount(0);
-        baseMapper.update(user, new LambdaUpdateWrapper<>(SysUser.class).eq(SysUser::getId, id));
     }
 
     @Override
@@ -96,7 +81,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         if (user == null) {
             return;
         }
-        if (id == null || user.getId().equals(id)) {
+        if (id == null || !id.equals(user.getId())) {
             throw new ServiceException("当前账号已存在");
         }
     }

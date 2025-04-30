@@ -1,6 +1,7 @@
 package com.moran.conf.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.moran.util.ServletUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
@@ -14,15 +15,16 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.strictInsertFill(metaObject, "createBy", Long.class, 123456L);
+        System.out.println(ServletUtil.getLoginUserId());
+        this.strictInsertFill(metaObject, "createBy", Long.class, ServletUtil.getLoginUserId());
         this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
-        this.strictInsertFill(metaObject, "updateBy", Long.class, 123456L);
+        this.strictInsertFill(metaObject, "updateBy", Long.class, ServletUtil.getLoginUserId());
         this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.strictInsertFill(metaObject, "updateBy", Long.class, 123456L);
+        this.strictInsertFill(metaObject, "updateBy", Long.class, ServletUtil.getLoginUserId());
         this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
     }
 }

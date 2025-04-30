@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@TableName("sys_menu")
+@TableName(value = "sys_menu", autoResultMap = true)
 public class SysMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -105,11 +105,6 @@ public class SysMenu implements Serializable {
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateBy;
-
-    /**
-     * 状态
-     */
-    private Boolean status;
 
     /**
      * 是否删除

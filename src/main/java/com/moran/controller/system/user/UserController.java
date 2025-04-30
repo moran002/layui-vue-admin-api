@@ -68,8 +68,8 @@ public class UserController {
      */
     @GetMapping("/list")
     @SaCheckPermission("system:user:query")
-    public PageResponseBean<UserVO> list(String account, String mobile, String name, Long roleId) {
-        Page<SysUser> page = userService.userPage(account, mobile, name, roleId);
+    public PageResponseBean<UserVO> list(String account, String mobile, String nickName, Long roleId) {
+        Page<SysUser> page = userService.userPage(account, mobile, nickName, roleId);
         if (CollUtil.isEmpty(page.getRecords())) {
             return PageResponseBean.ok(page.getTotal(), null);
         }

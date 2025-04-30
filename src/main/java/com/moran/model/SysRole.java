@@ -21,7 +21,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@TableName("sys_role")
+@TableName(value = "sys_role", autoResultMap = true)
 public class SysRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
