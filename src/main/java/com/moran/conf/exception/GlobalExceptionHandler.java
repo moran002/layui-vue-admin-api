@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.sql.SQLException;
 
@@ -57,5 +58,10 @@ public class GlobalExceptionHandler {
     public ResponseBean<Object> cryptoException(CryptoException e) {
         log.error("<!---- CryptoException:{} ----!>", e.getMessage());
         return ResponseBean.fail(CodeConstant.LOGIN_FAIL, e.getMessage());
+    }
+    @ExceptionHandler(value = NoHandlerFoundException.class)
+    public ResponseBean<Object> noHandlerFoundException(NoHandlerFoundException e) {
+        log.warn("<!---- NoHandlerFoundException:{} ----!>", e.getMessage());
+        return ResponseBean.fail(CodeConstant.SERVICE_ERROR,"请求地址不存在");
     }
 }

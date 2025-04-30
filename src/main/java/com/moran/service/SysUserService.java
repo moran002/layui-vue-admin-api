@@ -1,82 +1,32 @@
 package com.moran.service;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.asymmetric.KeyType;
-import com.moran.conf.constant.CommonConstant;
-import com.moran.conf.exception.ServiceException;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.moran.controller.system.user.model.UserDTO;
-import com.moran.mapper.SysUserMapper;
 import com.moran.model.SysUser;
-import io.mybatis.mapper.example.ExampleWrapper;
-import io.mybatis.service.AbstractService;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
- * sys_user - 用户表
+ * <p>
+ * 用户表 服务类
+ * </p>
  *
- * @author 系统自动生成
+ * @author MyBatis-Plus Generator
+ * @since 2025-04-30
  */
-@Service
-public class SysUserService extends AbstractService<SysUser, Long, SysUserMapper> {
+public interface SysUserService extends IService<SysUser> {
 
-    public Optional<SysUser> findByAccount(String account) {
-        return wrapper().eq(SysUser::getAccount, account)
-                .one();
-    }
+    SysUser findByAccount(String account);
 
-    public void incremental(Long id) {
-        baseMapper.incremental(id);
-    }
+    void incremental(Long id);
 
-    public void resetErrorCount(Long id) {
-        baseMapper.resetErrorCount(id);
-    }
+    void resetErrorCount(Long id);
 
-    public List<SysUser> list(String account, String mobile, String nickName, Long roleId) {
-        ExampleWrapper<SysUser, Long> wrapper = wrapper();
-        if (StrUtil.isNotBlank(account)) {
-            wrapper.contains(SysUser::getAccount, account);
-        }
-        if (StrUtil.isNotBlank(mobile)) {
-            wrapper.contains(SysUser::getMobile, mobile);
-        }
-        if (StrUtil.isNotBlank(nickName)) {
-            wrapper.contains(SysUser::getNickName, nickName);
-        }
-        if (roleId != null) {
-            wrapper.anyCondition("json_contains(role_ids, json_array("+ roleId+")");
-        }
-        wrapper.orderByDesc(SysUser::getId);
-        return wrapper.list();
-    }
+    void delUser(@NotNull Long id);
 
-    public void createUser(@Valid UserDTO dto) {
-        SysUser user = BeanUtil.toBean(dto, SysUser.class);
-        user.setPassword(CommonConstant.RSA.encryptBase64("123456", KeyType.PublicKey));
-        saveSelective(user);
-    }
+    Page<SysUser> userPage(String account, String mobile, String name, Long roleId);
 
-    public void updateUser(UserDTO dto) {
-        verifyUserExists(dto.getId());
-        SysUser user = BeanUtil.toBean(dto, SysUser.class);
-        updateSelective(user);
-    }
+    void createUser(UserDTO dto);
 
-    private void verifyUserExists(Long id) {
-        SysUser user = findById(id);
-        if (user == null) {
-            throw new ServiceException("用户不存在");
-        }
-    }
-
-    public void delUser(@NotNull Long id) {
-        verifyUserExists(id);
-
-    }
+    void updateUser(UserDTO dto);
 }

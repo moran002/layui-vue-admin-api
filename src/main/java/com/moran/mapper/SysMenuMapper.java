@@ -1,15 +1,16 @@
 package com.moran.mapper;
 
-import io.mybatis.mapper.BaseMapper;
-
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.moran.model.SysMenu;
 
 /**
- * sys_menu - 菜单表
+ * <p>
+ * 菜单表 Mapper 接口
+ * </p>
  *
- * @author 系统自动生成
+ * @author MyBatis-Plus Generator
+ * @since 2025-04-30
  */
-@org.apache.ibatis.annotations.Mapper
-public interface SysMenuMapper extends BaseMapper<SysMenu, Long> {
+public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
 }

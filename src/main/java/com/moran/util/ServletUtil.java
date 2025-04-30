@@ -14,12 +14,6 @@ import java.util.Objects;
  * @author : moran
  */
 public class ServletUtil {
-    /**
-     * 开启分页
-     */
-    public static void startPage() {
-        PageUtil.startPage();
-    }
 
     /**
      * 获取request
@@ -49,12 +43,16 @@ public class ServletUtil {
      * 获取用户ID
      */
     public static UserInfo getUserInfo() {
-        return (UserInfo) StpUtil.getSession().get(CommonConstant.USER_INFO);
+
+        return StpUtil.isLogin()? (UserInfo) StpUtil.getSession().get(CommonConstant.USER_INFO): null;
     }
     /**
      * 获取用户ID
      */
-    public static Long getUserId() {
+    public static Long getLoginUserId() {
+        if (getUserInfo() == null) {
+            return null;
+        }
         return getUserInfo().getUserId();
     }
 }

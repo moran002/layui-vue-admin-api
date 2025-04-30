@@ -8,15 +8,18 @@ server:
       enabled: true
   tomcat:
     uri-encoding: UTF-8
-mybatis:
-  mapper-locations: classpath:mappers/*.xml
-
-
-pagehelper:
-  helper-dialect: mysql
-  reasonable: true
-  support-methods-arguments: true
-  params: count=countSql
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath*:mappers/**.xml
+  type-handlers-package: com.baomidou.mybatisplus.extension.handlers
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: 1 # 逻辑已删除值
+      logic-not-delete-value: 0 # 逻辑未删除值
+      id-type: auto
+    banner: false
 
 spring:
   profiles:

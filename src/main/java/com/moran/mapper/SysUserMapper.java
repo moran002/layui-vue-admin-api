@@ -1,19 +1,16 @@
 package com.moran.mapper;
 
-import io.mybatis.mapper.BaseMapper;
-
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.moran.model.SysUser;
-import org.apache.ibatis.annotations.Param;
 
 /**
- * sys_user - 用户表
+ * <p>
+ * 用户表 Mapper 接口
+ * </p>
  *
- * @author 系统自动生成
+ * @author MyBatis-Plus Generator
+ * @since 2025-04-30
  */
-@org.apache.ibatis.annotations.Mapper
-public interface SysUserMapper extends BaseMapper<SysUser, Long> {
+public interface SysUserMapper extends BaseMapper<SysUser> {
 
-    void incremental(@Param("id") Long id);
-
-    void resetErrorCount(@Param("id") Long id);
 }

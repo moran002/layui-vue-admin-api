@@ -2,6 +2,7 @@ package com.moran.controller.system.user;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moran.conf.bean.PageResponseBean;
 import com.moran.conf.bean.ResponseBean;
 import com.moran.controller.system.user.model.UserDTO;
@@ -10,7 +11,6 @@ import com.moran.model.SysRole;
 import com.moran.model.SysUser;
 import com.moran.service.SysRoleService;
 import com.moran.service.SysUserService;
-import com.moran.util.ServletUtil;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.apache.ibatis.annotations.Update;
@@ -68,14 +68,13 @@ public class UserController {
      */
     @GetMapping("/list")
     @SaCheckPermission("system:user:query")
-    public PageResponseBean<List<UserVO>> list(String account, String mobile, String name, Long roleId) {
-        ServletUtil.startPage();
-        List<SysUser> list = userService.list(account, mobile, name, roleId);
-        if (CollUtil.isEmpty(list)) {
-            return PageResponseBean.ok(list, null);
+    public PageResponseBean<UserVO> list(String account, String mobile, String name, Long roleId) {
+        Page<SysUser> page = userService.userPage(account, mobile, name, roleId);
+        if (CollUtil.isEmpty(page.getRecords())) {
+            return PageResponseBean.ok(page.getTotal(), null);
         }
-        Set<Long> roleIds = list.stream().map(SysUser::getRoleIds).flatMap(Collection::stream).collect(Collectors.toSet());
+        Set<Long> roleIds = page.getRecords().stream().map(SysUser::getRoleIds).flatMap(Collection::stream).collect(Collectors.toSet());
         List<SysRole> roles = roleService.findByRoleIds(roleIds);
-        return PageResponseBean.ok(list, list.stream().map(u -> UserVO.convert(u, roles)).toList());
+        return PageResponseBean.ok(page.getTotal(), page.getRecords().stream().map(u -> UserVO.convert(u, roles)).toList());
     }
 }

@@ -26,7 +26,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * 登录管理
@@ -105,11 +104,10 @@ public class AuthController {
         if (redisService.hasKey(failKey)) {
             return ResponseBean.loginFail(String.format("密码多次错误,请等待%s秒之后再试", redisService.getExpire(failKey)));
         }
-        Optional<SysUser> optional = userService.findByAccount(dto.getAccount());
-        if (optional.isEmpty()) {
+        SysUser sysUser = userService.findByAccount(dto.getAccount());
+        if (sysUser == null) {
             return ResponseBean.loginFail("用户不存在");
         }
-        SysUser sysUser = optional.get();
         if (!sysUser.getStatus()) {
             return ResponseBean.loginFail("用户已停用");
         }

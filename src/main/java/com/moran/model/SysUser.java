@@ -1,68 +1,115 @@
 package com.moran.model;
 
-import com.moran.conf.mybatis.handler.LongListTypeHandler;
-import io.mybatis.provider.Entity;
+import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.ibatis.type.JdbcType;
+import lombok.ToString;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * sys_user - 用户表
+ * <p>
+ * 用户表
+ * </p>
  *
- * @author 系统自动生成
+ * @author MyBatis-Plus Generator
+ * @since 2025-04-30
  */
 @Getter
 @Setter
-@Entity.Table(value = "sys_user", remark = "用户表", autoResultMap = true)
-public class SysUser {
-    @Entity.Column(value = "id", id = true, remark = "用户ID", updatable = false, insertable = false, useGeneratedKeys = true)
+@ToString
+@TableName("sys_user")
+public class SysUser implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 用户ID
+     */
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @Entity.Column(value = "account", remark = "账号")
+    /**
+     * 账号
+     */
     private String account;
 
-    @Entity.Column(value = "password", remark = "密码")
+    /**
+     * 密码
+     */
     private String password;
 
-    @Entity.Column(value = "nick_name", remark = "用户昵称")
+    /**
+     * 用户昵称
+     */
     private String nickName;
 
-    @Entity.Column(value = "avatar", remark = "头像")
+    /**
+     * 头像
+     */
     private String avatar;
 
-    @Entity.Column(value = "mobile", remark = "手机号")
+    /**
+     * 手机号
+     */
     private String mobile;
 
-    @Entity.Column(value = "email", remark = "邮箱")
+    /**
+     * 邮箱
+     */
     private String email;
 
-    @Entity.Column(value = "remark", remark = "备注")
+    /**
+     * 备注
+     */
     private String remark;
 
-    @Entity.Column(value = "role_ids", remark = "角色ID集合", typeHandler = LongListTypeHandler.class)
+    /**
+     * 角色ID集合
+     */
+    @TableField(typeHandler = JacksonTypeHandler.class)
     private List<Long> roleIds;
 
-    @Entity.Column(value = "status", remark = "状态")
+    /**
+     * 状态
+     */
     private Boolean status;
 
-    @Entity.Column(value = "error_count", remark = "密码错误次数")
+    /**
+     * 密码错误次数
+     */
     private Integer errorCount;
 
-    @Entity.Column(value = "create_time", remark = "创建时间", jdbcType = JdbcType.TIMESTAMP)
-    private Date createTime;
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
 
-    @Entity.Column(value = "create_by", remark = "创建人")
+    /**
+     * 创建人
+     */
+    @TableField(fill = FieldFill.INSERT)
     private Long createBy;
 
-    @Entity.Column(value = "update_time", remark = "更新时间", jdbcType = JdbcType.TIMESTAMP)
-    private Date updateTime;
+    /**
+     * 更新时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
-    @Entity.Column(value = "update_by", remark = "更新人")
+    /**
+     * 更新人
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateBy;
 
-    @Entity.Column(value = "deleted", remark = "删除")
+    /**
+     * 是否删除
+     */
+    @TableLogic
     private Boolean deleted;
 }

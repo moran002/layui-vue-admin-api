@@ -1,74 +1,119 @@
 package com.moran.model;
 
-import io.mybatis.provider.Entity;
-import org.apache.ibatis.type.JdbcType;
-
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
- * sys_menu - 菜单表
+ * <p>
+ * 菜单表
+ * </p>
  *
- * @author 系统自动生成
+ * @author MyBatis-Plus Generator
+ * @since 2025-04-30
  */
 @Getter
 @Setter
-@Entity.Table(value = "sys_menu", remark = "菜单表", autoResultMap = true)
-public class SysMenu {
-    @Entity.Column(value = "id", id = true, remark = "菜单ID", updatable = false, insertable = false, useGeneratedKeys = true)
+@ToString
+@TableName("sys_menu")
+public class SysMenu implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 菜单ID
+     */
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @Entity.Column(value = "parent_id", remark = "上级ID")
+    /**
+     * 上级ID
+     */
     private Long parentId;
 
-    @Entity.Column(value = "name", remark = "name")
+    /**
+     * name
+     */
     private String name;
 
-    @Entity.Column(value = "title", remark = "菜单名称")
-    private String title;
-
-    @Entity.Column(value = "path", remark = "目录")
+    /**
+     * 目录
+     */
     private String path;
 
-    @Entity.Column(value = "component", remark = "路由地址")
+    /**
+     * 路由地址
+     */
     private String component;
 
-    @Entity.Column(value = "sort", remark = "排序")
+    /**
+     * 菜单名称
+     */
+    private String title;
+
+    /**
+     * 排序
+     */
     private Integer sort;
 
-    @Entity.Column(value = "is_show", remark = "是否可见")
+    /**
+     * 是否可见
+     */
     private Boolean isShow;
 
-    @Entity.Column(value = "type", remark = "类型:1:菜单,2:按钮")
+    /**
+     * 类型:1:菜单,2:按钮
+     */
     private Integer type;
 
-    @Entity.Column(value = "api", remark = "接口api")
+    /**
+     * 接口api
+     */
     private String api;
 
-    @Entity.Column(value = "icon", remark = "图标")
+    /**
+     * 图标
+     */
     private String icon;
 
-    @Entity.Column(value = "redirect", remark = "")
     private String redirect;
 
-    @Entity.Column(value = "status", remark = "状态")
-    private Boolean status;
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
 
-    @Entity.Column(value = "create_time", remark = "创建时间", jdbcType = JdbcType.TIMESTAMP)
-    private Date createTime;
-
-    @Entity.Column(value = "create_by", remark = "创建人")
+    /**
+     * 创建人
+     */
+    @TableField(fill = FieldFill.INSERT)
     private Long createBy;
 
-    @Entity.Column(value = "update_time", remark = "更新时间", jdbcType = JdbcType.TIMESTAMP)
-    private Date updateTime;
+    /**
+     * 更新时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
-    @Entity.Column(value = "update_by", remark = "更新人")
+    /**
+     * 更新人
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateBy;
 
-    @Entity.Column(value = "deleted", remark = "删除")
-    private Boolean deleted;
+    /**
+     * 状态
+     */
+    private Boolean status;
 
+    /**
+     * 是否删除
+     */
+    @TableLogic
+    private Boolean deleted;
 }

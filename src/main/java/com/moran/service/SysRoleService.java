@@ -1,22 +1,22 @@
 package com.moran.service;
 
-import org.springframework.stereotype.Service;
-import io.mybatis.service.AbstractService;
 import com.moran.model.SysRole;
-import com.moran.mapper.SysRoleMapper;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.Collection;
 import java.util.List;
 
 /**
- * sys_role - 角色表
+ * <p>
+ * 角色表 服务类
+ * </p>
  *
- * @author 系统自动生成
+ * @author MyBatis-Plus Generator
+ * @since 2025-04-30
  */
-@Service
-public class  SysRoleService extends AbstractService<SysRole, Long, SysRoleMapper> {
+public interface SysRoleService extends IService<SysRole> {
 
-    public List<SysRole> findByRoleIds(Collection<Long> roleIds) {
-        return wrapper().in(SysRole::getId, roleIds).list();
-    }
+    List<SysRole> findByRoleIds(Collection<Long> roleIds);
+
+    List<SysRole> findAll();
 }

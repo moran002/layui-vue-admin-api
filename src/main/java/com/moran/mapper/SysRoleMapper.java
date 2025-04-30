@@ -1,15 +1,16 @@
 package com.moran.mapper;
 
-import io.mybatis.mapper.BaseMapper;
-
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.moran.model.SysRole;
 
 /**
- * sys_role - 角色表
+ * <p>
+ * 角色表 Mapper 接口
+ * </p>
  *
- * @author 系统自动生成
+ * @author MyBatis-Plus Generator
+ * @since 2025-04-30
  */
-@org.apache.ibatis.annotations.Mapper
-public interface SysRoleMapper extends BaseMapper<SysRole, Long> {
+public interface SysRoleMapper extends BaseMapper<SysRole> {
 
 }

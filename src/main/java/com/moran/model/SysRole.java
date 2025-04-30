@@ -1,48 +1,80 @@
 package com.moran.model;
 
-import com.moran.conf.mybatis.handler.LongListTypeHandler;
-import io.mybatis.provider.Entity;
+import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.ibatis.type.JdbcType;
+import lombok.ToString;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * sys_role - 角色表
+ * <p>
+ * 角色表
+ * </p>
  *
- * @author 系统自动生成
+ * @author MyBatis-Plus Generator
+ * @since 2025-04-30
  */
 @Getter
 @Setter
-@Entity.Table(value = "sys_role", remark = "角色表", autoResultMap = true)
-public class SysRole {
-    @Entity.Column(value = "id", id = true, remark = "角色ID", updatable = false, insertable = false, useGeneratedKeys = true)
+@ToString
+@TableName("sys_role")
+public class SysRole implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 角色ID
+     */
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @Entity.Column(value = "name", remark = "角色名称")
+    /**
+     * 角色名称
+     */
     private String name;
 
-    @Entity.Column(value = "remark", remark = "备注")
+    /**
+     * 备注
+     */
     private String remark;
 
-    @Entity.Column(value = "menu_ids", remark = "菜单ID集合", typeHandler = LongListTypeHandler.class)
+    /**
+     * 菜单ID集合
+     */
+    @TableField(typeHandler = JacksonTypeHandler.class)
     private List<Long> menuIds;
 
-    @Entity.Column(value = "create_time", remark = "创建时间", jdbcType = JdbcType.TIMESTAMP)
-    private Date createTime;
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
 
-    @Entity.Column(value = "create_by", remark = "创建人")
+    /**
+     * 创建人
+     */
+    @TableField(fill = FieldFill.INSERT)
     private Long createBy;
 
-    @Entity.Column(value = "update_time", remark = "更新时间", jdbcType = JdbcType.TIMESTAMP)
-    private Date updateTime;
+    /**
+     * 更新时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
-    @Entity.Column(value = "update_by", remark = "更新人")
+    /**
+     * 更新人
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateBy;
 
-    @Entity.Column(value = "deleted", remark = "删除")
+    /**
+     * 是否删除
+     */
+    @TableLogic
     private Boolean deleted;
-
 }
