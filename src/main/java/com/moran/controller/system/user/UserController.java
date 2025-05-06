@@ -5,6 +5,8 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moran.conf.bean.PageResponseBean;
 import com.moran.conf.bean.ResponseBean;
+import com.moran.controller.system.user.model.PasswordDTO;
+import com.moran.controller.system.user.model.StatusDTO;
 import com.moran.controller.system.user.model.UserDTO;
 import com.moran.controller.system.user.model.UserVO;
 import com.moran.model.SysRole;
@@ -40,6 +42,26 @@ public class UserController {
     @SaCheckPermission("system:user:del")
     public ResponseBean<Boolean> delUser(@Validated @NotNull Long id) {
         userService.delUser(id);
+        return ResponseBean.ok(true);
+    }
+
+    /**
+     * 状态变更
+     */
+    @PostMapping("/status")
+    @SaCheckPermission("system:user:query")
+    public ResponseBean<Boolean> statusUser(@Validated @RequestBody StatusDTO dto) {
+        userService.statusUser(dto.getId(), dto.getStatus());
+        return ResponseBean.ok(true);
+    }
+
+    /**
+     * 重置密码
+     */
+    @PostMapping("/password")
+    @SaCheckPermission("system:user:password")
+    public ResponseBean<Boolean> passwordUser(@Validated @RequestBody PasswordDTO dto) {
+        userService.passwordUser(dto);
         return ResponseBean.ok(true);
     }
 

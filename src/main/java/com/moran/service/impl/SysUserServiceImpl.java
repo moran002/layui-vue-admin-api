@@ -9,6 +9,7 @@ import com.moran.conf.constant.CommonConstant;
 import com.moran.conf.exception.ServiceException;
 import com.moran.conf.mybatis.LambdaQueryWrapperX;
 import com.moran.conf.mybatis.MyBatisUtils;
+import com.moran.controller.system.user.model.PasswordDTO;
 import com.moran.controller.system.user.model.UserDTO;
 import com.moran.mapper.SysUserMapper;
 import com.moran.model.SysUser;
@@ -66,6 +67,24 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         verificationAccount(dto.getAccount(), dto.getId());
         SysUser user = BeanUtil.toBean(dto, SysUser.class);
         user.setPassword(null);
+        baseMapper.updateById(user);
+    }
+
+    @Override
+    public void passwordUser(PasswordDTO dto) {
+        verificationUserExist(dto.getId());
+        SysUser user = new SysUser();
+        user.setId(dto.getId());
+        user.setPassword(CommonConstant.RSA.encryptBase64(dto.getPassword(), KeyType.PublicKey));
+        baseMapper.updateById(user);
+    }
+
+    @Override
+    public void statusUser(Long id, Boolean status) {
+        verificationUserExist(id);
+        SysUser user = new SysUser();
+        user.setId(id);
+        user.setStatus(status);
         baseMapper.updateById(user);
     }
 

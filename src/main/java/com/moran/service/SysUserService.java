@@ -2,6 +2,7 @@ package com.moran.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.moran.controller.system.user.model.PasswordDTO;
 import com.moran.controller.system.user.model.UserDTO;
 import com.moran.model.SysUser;
 import jakarta.validation.constraints.NotNull;
@@ -25,4 +26,8 @@ public interface SysUserService extends IService<SysUser> {
     void createUser(UserDTO dto);
 
     void updateUser(UserDTO dto);
+
+    void passwordUser(PasswordDTO dto);
+
+    void statusUser(Long id, Boolean status);
 }
