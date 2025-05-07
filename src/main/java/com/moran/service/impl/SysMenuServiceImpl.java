@@ -1,6 +1,8 @@
 package com.moran.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.moran.controller.system.menu.model.MenuDTO;
 import com.moran.model.SysMenu;
 import com.moran.mapper.SysMenuMapper;
 import com.moran.service.SysMenuService;
@@ -28,5 +30,17 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Override
     public List<SysMenu> findByMenuIds(List<Long> menuIds) {
         return baseMapper.selectByIds(menuIds);
+    }
+
+    @Override
+    public void createMenu(MenuDTO dto) {
+        SysMenu menu = BeanUtil.toBean(dto, SysMenu.class);
+        baseMapper.insert(menu);
+    }
+
+    @Override
+    public void updateMenu(MenuDTO dto) {
+        SysMenu menu = BeanUtil.toBean(dto, SysMenu.class);
+        baseMapper.updateById(menu);
     }
 }

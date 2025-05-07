@@ -1,5 +1,8 @@
 package com.moran.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.moran.controller.system.role.model.PermissionRoleDTO;
+import com.moran.controller.system.role.model.RoleDTO;
 import com.moran.model.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -19,4 +22,14 @@ public interface SysRoleService extends IService<SysRole> {
     List<SysRole> findByRoleIds(Collection<Long> roleIds);
 
     List<SysRole> findAll();
+
+    Page<SysRole> pageRole(String name);
+
+    void createRole(RoleDTO dto);
+
+    void updateRole(RoleDTO dto);
+
+    void permissionRole(PermissionRoleDTO dto);
+
+    void delRole(Long id);
 }

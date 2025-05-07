@@ -100,7 +100,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         if (user == null) {
             return;
         }
-        if (id == null || !id.equals(user.getId())) {
+        if (!id.equals(user.getId())) {
             throw new ServiceException("当前账号已存在");
         }
     }

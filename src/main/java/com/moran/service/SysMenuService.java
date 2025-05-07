@@ -1,5 +1,6 @@
 package com.moran.service;
 
+import com.moran.controller.system.menu.model.MenuDTO;
 import com.moran.model.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -18,4 +19,8 @@ public interface SysMenuService extends IService<SysMenu> {
     List<SysMenu> getAllMenus();
 
     List<SysMenu> findByMenuIds(List<Long> menuIds);
+
+    void createMenu(MenuDTO dto);
+
+    void updateMenu(MenuDTO dto);
 }
