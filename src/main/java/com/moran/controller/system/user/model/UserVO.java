@@ -6,7 +6,7 @@ import com.moran.model.SysRole;
 import com.moran.model.SysUser;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +58,7 @@ public class UserVO {
     /**
      * 创建时间
      */
-    private Date createTime;
+    private LocalDateTime createTime;
 
     public static UserVO convert(SysUser u, List<SysRole> roles) {
         UserVO vo = BeanUtil.toBean(u, UserVO.class);
