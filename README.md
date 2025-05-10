@@ -4,7 +4,7 @@
 1. springboot3.4.0
 2. mysql8.0.20 
 3. redis 
-4. mapper6
+4. mybatis-plus
 5. jdk17 
 6. sa-token
 

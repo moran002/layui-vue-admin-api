@@ -21,7 +21,7 @@ public class UserInfo {
     /**
      * 用户名称
      */
-    private String name;
+    private String nickName;
     /**
      * 用户头像
      */

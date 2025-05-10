@@ -47,6 +47,7 @@ public class WebDataConvertConfig implements WebMvcConfigurer {
         // 3. 全局配置
         objectMapper
                 .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .setSerializationInclusion(JsonInclude.Include.NON_EMPTY)
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                 .setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"))
