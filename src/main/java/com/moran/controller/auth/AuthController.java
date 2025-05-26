@@ -7,9 +7,11 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
+import cn.hutool.json.JSONUtil;
 import com.moran.conf.bean.ResponseBean;
 import com.moran.conf.bean.UserInfo;
 import com.moran.conf.constant.CommonConstant;
+import com.moran.conf.exception.ServiceException;
 import com.moran.conf.redis.RedisService;
 import com.moran.controller.auth.model.LoginDTO;
 import com.moran.controller.auth.model.RouterVO;
@@ -21,6 +23,7 @@ import com.moran.service.SysMenuService;
 import com.moran.service.SysRoleService;
 import com.moran.service.SysUserService;
 import com.moran.util.ServletUtil;
+import com.mzt.logapi.starter.annotation.LogRecord;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +51,7 @@ public class AuthController {
     @PostMapping("/logout")
     @SaCheckLogin
     public ResponseBean<Boolean> logout() {
+        UserInfo userInfo = ServletUtil.getUserInfo();
         StpUtil.logout();
         return ResponseBean.ok(true);
     }
@@ -99,35 +103,40 @@ public class AuthController {
      */
     @PostMapping("/login")
     @SaIgnore
+    @LogRecord(type = "登录", success = "账号:{{#dto.account}}, 登录成功", bizNo = "0", extra = "{{#dto.toString}}",
+            fail = "账号:{{#dto.account}}, 登录失败")
     public ResponseBean<String> login(@RequestBody @Validated LoginDTO dto) {
         String failKey = String.format(CommonConstant.PWD_FAIL_COUNT, dto.getAccount());
         if (redisService.hasKey(failKey)) {
-            return ResponseBean.loginFail(String.format("密码多次错误,请等待%s秒之后再试", redisService.getExpire(failKey)));
+            int count = redisService.get(failKey);
+            if (count >= 10) {
+                long expire = redisService.getExpire(failKey);
+                if (expire < 0) {
+                    redisService.expire(failKey, CommonConstant.EXPIRE);
+                }
+                throw new ServiceException(String.format("密码错误次数过多, 请等待%s秒", expire));
+            }
         }
         SysUser sysUser = userService.findByAccount(dto.getAccount());
         if (sysUser == null) {
-            return ResponseBean.loginFail("用户不存在");
+            throw new ServiceException("用户不存在");
         }
         if (!sysUser.getStatus()) {
-            return ResponseBean.loginFail("用户已停用");
+            throw new ServiceException("用户已停用");
         }
         if (!CommonConstant.RSA.decryptStr(sysUser.getPassword(), KeyType.PrivateKey).equals(dto.getPassword())) {
-            long count = redisService.get(failKey);
-            if (count >= 10) {
-                redisService.increment(failKey, CommonConstant.EXPIRE);
-                return ResponseBean.loginFail(String.format("密码错误次数过多, 请等待%s秒", CommonConstant.EXPIRE));
-            }
-            return ResponseBean.loginFail("密码错误");
+            redisService.increment(failKey);
+            throw new ServiceException("密码错误");
         }
         redisService.delete(failKey);
         List<SysRole> roles = roleService.findByRoleIds(sysUser.getRoleIds());
         if (CollUtil.isEmpty(roles)) {
-            return ResponseBean.loginFail("角色已关闭,暂时无法登录");
+            throw new ServiceException("角色已关闭,暂时无法登录");
         }
         List<Long> menuIds = roles.stream().map(SysRole::getMenuIds).flatMap(List::stream).toList();
         List<SysMenu> menus = menuService.findByMenuIds(menuIds);
         if (CollUtil.isEmpty(menus)) {
-            return ResponseBean.loginFail("暂无目录可访问");
+            throw new ServiceException("暂无目录可访问");
         }
         UserInfo userInfo = BeanUtil.toBean(sysUser, UserInfo.class);
         userInfo.setPermissions(menus.stream()

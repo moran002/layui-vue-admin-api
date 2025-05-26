@@ -30,19 +30,14 @@
     <dependencies>
 
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-core</artifactId>
-            <version>${hutool.version}</version>
+            <groupId>io.github.mouzt</groupId>
+            <artifactId>bizlog-sdk</artifactId>
+            <version>3.0.6</version>
         </dependency>
+
         <dependency>
             <groupId>cn.hutool</groupId>
-            <artifactId>hutool-json</artifactId>
-            <version>${hutool.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-crypto -->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-crypto</artifactId>
+            <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
         </dependency>
         <!--Sa-Token-->

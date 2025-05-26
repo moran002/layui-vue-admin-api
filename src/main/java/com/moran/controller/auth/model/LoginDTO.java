@@ -1,9 +1,11 @@
 package com.moran.controller.auth.model;
 
+import com.mzt.logapi.starter.annotation.DiffLogAllFields;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
+@DiffLogAllFields
 public class LoginDTO {
     /**
      * 账号

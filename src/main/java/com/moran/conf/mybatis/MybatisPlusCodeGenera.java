@@ -45,7 +45,7 @@ public class MybatisPlusCodeGenera {
                         .pathInfo(Collections.singletonMap(OutputFile.xml, path +  "/src/main/resources/mappers"))
                 )
                 .strategyConfig(builder -> {
-                    builder.addInclude("sys_user", "sys_role", "sys_menu") // 设置需要生成的表名
+                    builder.addInclude("sys_operate_log") // 设置需要生成的表名
                             .entityBuilder()
                             .enableLombok() // 启用 Lombok
                             .logicDeleteColumnName("deleted")

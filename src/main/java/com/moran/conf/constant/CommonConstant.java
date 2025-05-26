@@ -40,5 +40,5 @@ public final class CommonConstant {
     /**
      * redis key
      */
-    public static final String PWD_FAIL_COUNT = "user-pwd-fail-count::%s";
+    public static final String PWD_FAIL_COUNT = "user-pwd-fail-count:%s";
 }
