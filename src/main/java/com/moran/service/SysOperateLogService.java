@@ -1,5 +1,6 @@
 package com.moran.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moran.model.SysOperateLog;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SysOperateLogService extends IService<SysOperateLog> {
 
+    Page<SysOperateLog> logPage(String type, String nickName);
 }

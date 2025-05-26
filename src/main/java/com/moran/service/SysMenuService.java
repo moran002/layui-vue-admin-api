@@ -23,4 +23,6 @@ public interface SysMenuService extends IService<SysMenu> {
     void createMenu(MenuDTO dto);
 
     void updateMenu(MenuDTO dto);
+
+    List<SysMenu> getSimpleList();
 }

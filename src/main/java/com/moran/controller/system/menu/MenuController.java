@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 菜单管理
+ */
 @RestController
 @RequestMapping("/system/menu")
 @AllArgsConstructor
@@ -64,7 +67,7 @@ public class MenuController {
     @GetMapping("/simple-list")
     @SaCheckLogin
     public ResponseBean<List<TreeMenuVO>> simpleList() {
-        List<SysMenu> list = sysMenuService.getAllMenus();
+        List<SysMenu> list = sysMenuService.getSimpleList();
         return ResponseBean.ok(TreeMenuVO.convert(list));
     }
 }

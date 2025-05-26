@@ -12,6 +12,8 @@ import com.moran.controller.system.role.model.RoleDTO;
 import com.moran.mapper.SysRoleMapper;
 import com.moran.model.SysRole;
 import com.moran.service.SysRoleService;
+import com.mzt.logapi.context.LogRecordContext;
+import com.mzt.logapi.starter.annotation.LogRecord;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -45,23 +47,31 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
 
     @Override
+    @LogRecord(type = "角色管理", subType = "新增角色", success = "新增角色:{{#dto.toString}}", fail = "新增角色失败", bizNo = "{{#role.id}}")
     public void createRole(RoleDTO dto) {
         verificationName(null, dto.getName());
         SysRole role = BeanUtil.toBean(dto, SysRole.class);
         baseMapper.insert(role);
+        LogRecordContext.putVariable("role", role);
     }
 
     @Override
+    @LogRecord(type = "角色管理", subType = "更新角色", success = "更新角色成功", fail = "更新角色角色失败", bizNo = "{{#role.id}}",
+                extra = "角色名称:{{#role.name}}->{{#dto.name}}, 备注:{{#role.remark}}->{{#dto.remark}}")
     public void updateRole(RoleDTO dto) {
-        verificationRole(dto.getId());
+        SysRole sysRole = verificationRole(dto.getId());
         verificationName(dto.getId(), dto.getName());
         SysRole role = BeanUtil.toBean(dto, SysRole.class);
+        LogRecordContext.putVariable("role", sysRole);
         baseMapper.updateById(role);
     }
 
     @Override
+    @LogRecord(type = "角色管理", subType = "权限变更", success = "成功", fail = "失败", bizNo = "{{#role.id}}",
+            extra = "权限:{{#role.menuIds}}->{{#dto.menuIds}}")
     public void permissionRole(PermissionRoleDTO dto) {
-        verificationRole(dto.getId());
+        SysRole sysRole1 = verificationRole(dto.getId());
+        LogRecordContext.putVariable("role", sysRole1);
         SysRole sysRole = new SysRole();
         sysRole.setId(dto.getId());
         sysRole.setMenuIds(dto.getMenuIds());
@@ -69,16 +79,19 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
 
     @Override
+    @LogRecord(type = "角色管理", subType = "删除角色", success = "成功", fail = "失败", bizNo = "{{#role.id}}")
     public void delRole(Long id) {
-        verificationRole(id);
+        SysRole sysRole = verificationRole(id);
+        LogRecordContext.putVariable("role", sysRole);
         baseMapper.deleteById(id);
     }
 
-    private void verificationRole(Long id) {
+    private SysRole verificationRole(Long id) {
         SysRole role = baseMapper.selectById(id);
         if (role == null) {
             throw new ServiceException("请选择角色");
         }
+        return role;
     }
 
     private void verificationName(Long id, String name) {

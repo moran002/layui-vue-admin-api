@@ -1,11 +1,13 @@
 package com.moran.controller.system.role.model;
 
+import com.mzt.logapi.starter.annotation.DiffLogAllFields;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.apache.ibatis.annotations.Update;
 
 @Data
+@DiffLogAllFields
 public class RoleDTO {
     /**
      * ID

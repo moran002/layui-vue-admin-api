@@ -1,4 +1,4 @@
-package com.moran.conf.mybatis;
+package com.moran.controller;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
@@ -11,7 +11,8 @@ import java.nio.file.Paths;
 import java.sql.Types;
 import java.util.Collections;
 
-public class MybatisPlusCodeGenera {
+public class MybatisPlusController {
+
     public static void main(String[] args) {
         String URL = "jdbc:mysql://localhost:3306/moran?remarks=true&useInformationSchema=true";
         String USER_NAME = "root";

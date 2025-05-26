@@ -14,6 +14,8 @@ import com.moran.controller.system.user.model.UserDTO;
 import com.moran.mapper.SysUserMapper;
 import com.moran.model.SysUser;
 import com.moran.service.SysUserService;
+import com.mzt.logapi.context.LogRecordContext;
+import com.mzt.logapi.starter.annotation.LogRecord;
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,8 +36,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
+    @LogRecord(type = "用户管理", subType = "密码变更", success = "成功", bizNo = "{{#user.id}}")
     public void delUser(Long id) {
-        verificationUserExist(id);
+        SysUser user = verificationUserExist(id);
+        LogRecordContext.putVariable("user", user);
         baseMapper.deleteById(id);
     }
 
@@ -54,16 +58,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
+    @LogRecord(type = "用户管理", subType = "新增用户", success = "新增用户:{{#dto.toString}}", fail = "新增用户失败", bizNo = "{{#user.id}}")
     public void createUser(UserDTO dto) {
         verificationAccount(dto.getAccount(), null);
         SysUser user = BeanUtil.toBean(dto, SysUser.class);
         user.setPassword(CommonConstant.RSA.encryptBase64("123456", KeyType.PublicKey));
         baseMapper.insert(user);
+        LogRecordContext.putVariable("user", user);
     }
 
     @Override
+    @LogRecord(type = "用户管理", subType = "更新用户", success = "用户:{{#user.toString}} -> {{#dto.toString}}", fail = "新增用户失败", bizNo = "{{#user.id}}")
     public void updateUser(UserDTO dto) {
-        verificationUserExist(dto.getId());
+        SysUser sysUser = verificationUserExist(dto.getId());
+        LogRecordContext.putVariable("user", sysUser);
         verificationAccount(dto.getAccount(), dto.getId());
         SysUser user = BeanUtil.toBean(dto, SysUser.class);
         user.setPassword(null);
@@ -71,8 +79,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
+    @LogRecord(type = "用户管理", subType = "密码变更", success = "成功", bizNo = "{{#user.id}}")
     public void passwordUser(PasswordDTO dto) {
-        verificationUserExist(dto.getId());
+        SysUser user1 = verificationUserExist(dto.getId());
+        LogRecordContext.putVariable("user", user1);
         SysUser user = new SysUser();
         user.setId(dto.getId());
         user.setPassword(CommonConstant.RSA.encryptBase64(dto.getPassword(), KeyType.PublicKey));
@@ -88,11 +98,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         baseMapper.updateById(user);
     }
 
-    private void verificationUserExist(Long id) {
+    private SysUser verificationUserExist(Long id) {
         SysUser user = baseMapper.selectById(id);
         if (user == null) {
             throw new ServiceException("用户不存在");
         }
+        return user;
     }
 
     private void verificationAccount(String account, Long id) {

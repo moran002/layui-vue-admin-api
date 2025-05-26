@@ -2,6 +2,7 @@ package com.moran.model;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+import com.mzt.logapi.starter.annotation.DiffLogAllFields;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,6 +23,7 @@ import java.util.List;
 @Setter
 @ToString
 @TableName(value = "sys_role", autoResultMap = true)
+@DiffLogAllFields
 public class SysRole implements Serializable {
 
     private static final long serialVersionUID = 1L;

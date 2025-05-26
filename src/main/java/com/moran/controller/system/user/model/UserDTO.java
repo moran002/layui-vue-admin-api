@@ -1,5 +1,6 @@
 package com.moran.controller.system.user.model;
 
+import com.mzt.logapi.starter.annotation.DiffLogAllFields;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -9,6 +10,7 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
 @Data
+@DiffLogAllFields
 public class UserDTO {
     /**
      * ID

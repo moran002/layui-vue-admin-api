@@ -1,5 +1,8 @@
 package com.moran.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.moran.conf.mybatis.LambdaQueryWrapperX;
+import com.moran.conf.mybatis.MyBatisUtils;
 import com.moran.model.SysOperateLog;
 import com.moran.mapper.SysOperateLogMapper;
 import com.moran.service.SysOperateLogService;
@@ -17,4 +20,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysOperateLogServiceImpl extends ServiceImpl<SysOperateLogMapper, SysOperateLog> implements SysOperateLogService {
 
+    @Override
+    public Page<SysOperateLog> logPage(String type, String nickName) {
+        return baseMapper.selectPage(MyBatisUtils.buildPage(), new LambdaQueryWrapperX<SysOperateLog>()
+                .orderByDesc(SysOperateLog::getCreateTime)
+                .likeIfPresent(SysOperateLog::getNickName, nickName)
+                .likeIfPresent(SysOperateLog::getType, type));
+    }
 }

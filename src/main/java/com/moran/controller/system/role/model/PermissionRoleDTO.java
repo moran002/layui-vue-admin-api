@@ -1,5 +1,6 @@
 package com.moran.controller.system.role.model;
 
+import com.mzt.logapi.starter.annotation.DiffLogAllFields;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
+@DiffLogAllFields
 public class PermissionRoleDTO {
     /**
      *  ID
