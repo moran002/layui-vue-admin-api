@@ -1,4 +1,4 @@
-# boot3
+# api
 
 #### 软件架构
 1. springboot3.4.0
@@ -7,6 +7,7 @@
 4. mybatis-plus
 5. jdk17 
 6. sa-token
+7. biz-log
 
 #### 部署相关
 1. docker 目录添加了服务器利用docker-compose 部署文件的相应配置文件

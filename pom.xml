@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.4</version>
+        <version>3.4.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.moran</groupId>
     <artifactId>layui-vue-admin-api</artifactId>
     <version>1.0.0</version>
     <name>api</name>
-    <description>一个springboot3项目</description>
+    <description>一个简单的springboot3项目</description>
 
     <properties>
         <java.version>17</java.version>

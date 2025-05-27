@@ -4,10 +4,10 @@
         <property name="log.path" value="D:/java/logs" />
     </springProfile>
     <springProfile name="test">
-        <property name="log.path" value="/home/logs/" />
+        <property name="log.path" value="/home/log/" />
     </springProfile>
     <springProfile name="prod">
-        <property name="log.path" value="/home/logs/" />
+        <property name="log.path" value="/home/logs" />
     </springProfile>
     <springProfile name="local">
         <property name="log.path" value="D:/java/logs" />

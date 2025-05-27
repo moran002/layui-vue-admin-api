@@ -7,13 +7,13 @@ services:
     image: khipu/openjdk17-alpine:latest
     volumes:
       - /data/moran/test.jar:/test.jar
-      - ./logs:/data/moran/logs
+      - ./logs:/home/logs
       - /etc/localtime:/etc/localtime
     ports:
       - "8080:8080"
     environment:
       - TZ=Asia/Shanghai
-    entrypoint: java -server -jar -Duser.timezone=Asia/Shanghai -Dserver.port=8080 -Dspring.profiles.active=prod /test.jar
+    entrypoint: java -server -jar -Dserver.port=8080 -Dspring.profiles.active=prod /test.jar
     network_mode: "host"
 
 # -server jvm 参数说明
