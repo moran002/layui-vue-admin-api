@@ -15,7 +15,6 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        System.out.println(ServletUtil.getLoginUserId());
         this.strictInsertFill(metaObject, "createBy", Long.class, ServletUtil.getLoginUserId());
         this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
         this.strictInsertFill(metaObject, "updateBy", Long.class, ServletUtil.getLoginUserId());

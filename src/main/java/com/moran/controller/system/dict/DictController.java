@@ -32,12 +32,12 @@ public class DictController {
     private final SysDictDataService dictDataService;
 
     /**
-     * 删除
+     * 删除数据
      */
-    @DeleteMapping("/del")
+    @DeleteMapping("/delData")
     @SaCheckPermission("system:dict:del")
-    public ResponseBean<Boolean> delDictType(@Validated @NotNull(message = "请选择类型") Long id) {
-        dictTypeService.removeById(id);
+    public ResponseBean<Boolean> delData(@Validated @NotNull(message = "请选择数据") Long id) {
+        dictDataService.removeById(id);
         return ResponseBean.ok(true);
     }
 
@@ -64,11 +64,21 @@ public class DictController {
     /**
      * 数据列表
      */
-    @GetMapping("/data-list")
+    @GetMapping("/dataList")
     @SaCheckPermission("system:dict:query")
     public ResponseBean<List<DictDataVO>> queryDictDataList(String dictType) {
         List<SysDictData> list = dictDataService.getDataByType(dictType);
         return ResponseBean.ok(list.stream().map(d -> BeanUtil.toBean(d, DictDataVO.class)).toList());
+    }
+
+    /**
+     * 删除
+     */
+    @DeleteMapping("/del")
+    @SaCheckPermission("system:dict:del")
+    public ResponseBean<Boolean> delDictType(@Validated @NotNull(message = "请选择类型") Long id) {
+        dictTypeService.removeById(id);
+        return ResponseBean.ok(true);
     }
 
     /**

@@ -35,9 +35,4 @@ public class DictDataDTO {
      * 字典类型
      */
     private String dictType;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
 }

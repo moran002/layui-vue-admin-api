@@ -11,20 +11,29 @@ import java.time.LocalDateTime;
 @Data
 public class DictDataVO {
     /**
-     * 字典主键
+     * 字典编码
      */
-    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
-     * 字典名称
+     * 字典排序
      */
-    private String name;
+    private Integer sort;
+
+    /**
+     * 字典标签
+     */
+    private String label;
+
+    /**
+     * 字典键值
+     */
+    private String value;
 
     /**
      * 字典类型
      */
-    private String type;
+    private String dictType;
 
     /**
      * 创建时间
