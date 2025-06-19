@@ -1,4 +1,4 @@
-package com.moran.util;
+package com.moran.utils;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.extra.servlet.JakartaServletUtil;

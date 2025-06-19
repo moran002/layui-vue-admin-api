@@ -1,7 +1,7 @@
 package com.moran.conf.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.moran.util.ServletUtil;
+import com.moran.utils.ServletUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;

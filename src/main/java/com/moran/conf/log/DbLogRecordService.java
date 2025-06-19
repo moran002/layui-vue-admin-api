@@ -1,10 +1,9 @@
 package com.moran.conf.log;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.json.JSONUtil;
 import com.moran.model.SysOperateLog;
 import com.moran.service.SysOperateLogService;
-import com.moran.util.ServletUtil;
+import com.moran.utils.ServletUtil;
 import com.mzt.logapi.beans.LogRecord;
 import com.mzt.logapi.service.ILogRecordService;
 import jakarta.annotation.Resource;

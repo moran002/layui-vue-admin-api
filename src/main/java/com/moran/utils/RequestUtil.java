@@ -1,4 +1,4 @@
-package com.moran.util;
+package com.moran.utils;
 
 import jakarta.servlet.http.HttpServletRequest;
 
