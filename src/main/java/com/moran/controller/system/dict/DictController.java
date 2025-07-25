@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 字典
+ * 系统管理/字典
  */
 @RestController
 @RequestMapping("/system/dict")

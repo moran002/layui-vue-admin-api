@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 菜单管理
+ * 系统管理/菜单管理
  */
 @RestController
 @RequestMapping("/system/menu")

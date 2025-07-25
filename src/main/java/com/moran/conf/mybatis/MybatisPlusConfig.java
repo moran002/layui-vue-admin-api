@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class MybatisPlusConfig {
 
     /**
-     * 进制全表更新与删除
+     * 禁止全表更新与删除
      * @return
      */
     @Bean
