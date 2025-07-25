@@ -1,4 +1,4 @@
-package com.moran.controller.system.dict.vo;
+package com.moran.controller.system.dict.model;
 
 import com.mzt.logapi.starter.annotation.DiffLogAllFields;
 import jakarta.validation.constraints.NotBlank;

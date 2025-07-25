@@ -1,6 +1,6 @@
 package com.moran.service;
 
-import com.moran.controller.system.dict.vo.DictDataDTO;
+import com.moran.controller.system.dict.model.DictDataDTO;
 import com.moran.model.SysDictData;
 import com.baomidou.mybatisplus.extension.service.IService;
 

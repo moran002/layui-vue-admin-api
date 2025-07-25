@@ -3,7 +3,7 @@ package com.moran.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.moran.conf.exception.ServiceException;
 import com.moran.conf.mybatis.LambdaQueryWrapperX;
-import com.moran.controller.system.dict.vo.DictDataDTO;
+import com.moran.controller.system.dict.model.DictDataDTO;
 import com.moran.model.SysDictData;
 import com.moran.mapper.SysDictDataMapper;
 import com.moran.service.SysDictDataService;

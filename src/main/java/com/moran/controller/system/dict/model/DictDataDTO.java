@@ -1,15 +1,8 @@
-package com.moran.controller.system.dict.vo;
+package com.moran.controller.system.dict.model;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.apache.ibatis.annotations.Update;
-
-import java.time.LocalDateTime;
 
 @Data
 public class DictDataDTO {

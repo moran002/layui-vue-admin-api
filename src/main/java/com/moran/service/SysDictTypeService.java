@@ -1,7 +1,7 @@
 package com.moran.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.moran.controller.system.dict.vo.DictTypeDTO;
+import com.moran.controller.system.dict.model.DictTypeDTO;
 import com.moran.model.SysDictType;
 import com.baomidou.mybatisplus.extension.service.IService;
 

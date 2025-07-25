@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moran.conf.exception.ServiceException;
 import com.moran.conf.mybatis.LambdaQueryWrapperX;
 import com.moran.conf.mybatis.MyBatisUtils;
-import com.moran.controller.system.dict.vo.DictTypeDTO;
+import com.moran.controller.system.dict.model.DictTypeDTO;
 import com.moran.model.SysDictType;
 import com.moran.mapper.SysDictTypeMapper;
 import com.moran.service.SysDictTypeService;

@@ -1,6 +1,5 @@
-package com.moran.controller.system.log.vo;
+package com.moran.controller.system.log.model;
 
-import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;

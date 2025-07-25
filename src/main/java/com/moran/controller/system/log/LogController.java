@@ -4,7 +4,7 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moran.conf.bean.PageResponseBean;
-import com.moran.controller.system.log.vo.LogVO;
+import com.moran.controller.system.log.model.LogVO;
 import com.moran.model.SysOperateLog;
 import com.moran.service.SysOperateLogService;
 import lombok.AllArgsConstructor;
